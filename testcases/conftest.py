@@ -3,20 +3,17 @@ import time
 
 import pytest
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.firefox import GeckoDriverManager
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 driver = None
 
 @pytest.fixture(autouse=True)
 def setup(request, browser, url):
     global driver
     if browser == "chrome":
-        driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
+        driver = webdriver.Chrome()
     elif browser == "firefox":
-        driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+        driver = webdriver.Firefox()
     elif browser == "edge":
-        driver = webdriver.Edge(EdgeChromiumDriverManager().install())
+        driver = webdriver.Edge()
     driver.get(url)
     driver.maximize_window()
     request.cls.driver = driver

@@ -9,6 +9,7 @@ from utilities.utils import Utils
 @ddt
 class TestSearchAndVerifyFilter(softest.TestCase):
     log = Utils.custom_logger()
+
     @pytest.fixture(autouse=True)
     def class_setup(self):
         self.lp = LaunchPage(self.driver)
@@ -17,7 +18,8 @@ class TestSearchAndVerifyFilter(softest.TestCase):
     # @file_data("../testdata/testdata.json")
     # @file_data("../testdata/testyml.yaml")
     # @data(*Utils.read_data_from_excel("C:\\python-selenium\\TestFrameworkDemo\\testdata\\tdataexcel.xlsx", "Sheet1"))
-    @data(*Utils.read_data_from_csv("C:\\python-selenium\\TestFrameworkDemo\\testdata\\tdatacsv.csv"))
+    @data(*Utils.read_data_from_csv(
+        "/home/QBuser/PycharmProjects/python-selenium/selenium-python-automation-framework-code/testdata/tdatacsv.csv"))
     @unpack
     def test_search_flights_1_stop(self, goingfrom, goingto, date, stops):
         search_flight_result = self.lp.searchFlights(goingfrom, goingto, date)
@@ -26,5 +28,3 @@ class TestSearchAndVerifyFilter(softest.TestCase):
         allstops1 = search_flight_result.get_search_flight_results()
         self.log.info(len(allstops1))
         self.ut.assertListItemText(allstops1, stops)
-
-
